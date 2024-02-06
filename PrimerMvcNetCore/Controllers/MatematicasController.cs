@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrimerMvcNetCore.Models;
 
 namespace PrimerMvcNetCore.Controllers
 {
@@ -56,6 +57,45 @@ namespace PrimerMvcNetCore.Controllers
             }
             //DEVOLVEMOS EL MODEL A LA VISTA
             return View(numeros);
+        }
+
+        public IActionResult TablaMultiplicarSimple()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult TablaMultiplicarSimple(int numero)
+        {
+            List<int> resultados = new List<int>();
+            for (int i = 1; i <= 10; i++)
+            {
+                int operacion = numero * i;
+                resultados.Add(operacion);
+            }
+            return View(resultados);
+        }
+
+        public IActionResult TablaMultiplicarModel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult TablaMultiplicarModel(int numero)
+        {
+            List<FilaTablaMultiplicar> resultados =
+                new List<FilaTablaMultiplicar>();
+            for (int i = 1; i <= 10; i++)
+            {
+                string operacion = numero + " * " + i;
+                int result = numero * i;
+                FilaTablaMultiplicar fila = new FilaTablaMultiplicar();
+                fila.Resultado = result;
+                fila.Operacion = operacion;
+                resultados.Add(fila);
+            }
+            return View(resultados);
         }
     }
 }
